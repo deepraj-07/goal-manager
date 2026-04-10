@@ -1,0 +1,38 @@
+.quick-add-form {
+  display: flex;
+  gap: 16px;
+}
+
+.quick-add-form input {
+  flex: 1;
+  background: var(--input-bg);
+  border: none;
+  padding: 16px 24px;
+  border-radius: 16px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text-primary);
+  outline: none;
+}
+.quick-add-form input::placeholder {
+  color: #94a3b8;
+}
+
+.qa-btn {
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 0 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.qa-btn:hover {
+  background: var(--primary-blue-hover);
+}

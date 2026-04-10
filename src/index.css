@@ -1,0 +1,63 @@
+:root {
+  --bg-color: #f7f9fc;
+  --sidebar-bg: #ffffff;
+  --card-bg: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #64748b;
+  --border-color: #f1f5f9;
+  --primary-blue: #2563eb;
+  --primary-blue-hover: #1d4ed8;
+  --blue-gradient: linear-gradient(135deg, #4f46e5, #3b82f6);
+  --input-bg: #f1f5f9;
+  --danger-color: #ef4444;
+  --success-color: #10b981;
+  --glass-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  /* Hover and active states */
+  --hover-bg: #f8fafc;
+  --active-bg: #eff6ff;
+  --pill-bg: #f1f5f9;
+  --completed-bg: #f8fafc;
+  --completed-border: #cbd5e1;
+  --icon-blue-bg: #eff6ff;
+  --icon-purple-bg: #faf5ff;
+  --icon-green-bg: #d1fae5;
+}
+
+[data-theme='dark'] {
+  --bg-color: #0f172a;
+  --sidebar-bg: #1e293b;
+  --card-bg: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --primary-blue: #3b82f6;
+  --primary-blue-hover: #60a5fa;
+  --blue-gradient: linear-gradient(135deg, #4f46e5, #60a5fa);
+  --input-bg: #0f172a;
+  --glass-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  /* Hover and active states */
+  --hover-bg: rgba(255,255,255,0.05);
+  --active-bg: rgba(59, 130, 246, 0.1);
+  --pill-bg: #334155;
+  --completed-bg: rgba(255,255,255,0.02);
+  --completed-border: #475569;
+  --icon-blue-bg: rgba(59, 130, 246, 0.15);
+  --icon-purple-bg: rgba(168, 85, 247, 0.15);
+  --icon-green-bg: rgba(16, 185, 129, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

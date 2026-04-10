@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  mera-lakshya-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    container_name: mera-lakshya
+    restart: unless-stopped
