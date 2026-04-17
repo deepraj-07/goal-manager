@@ -27,9 +27,7 @@ describe('Goal Manager App', () => {
     // Find input and add button
     const input = screen.getByPlaceholderText(/What's your next goal\?/i);
     const addButton = screen.getByRole('button', { name: /Add/i });
-
-    // Ensure the initial list is empty (or has empty state message)
-    expect(screen.getByText(/No goals yet/i)).toBeInTheDocument();
+    const initialGoalCount = screen.getAllByRole('listitem').length;
 
     // Type a new goal
     fireEvent.change(input, { target: { value: 'Learn Vitest' } });
@@ -39,8 +37,6 @@ describe('Goal Manager App', () => {
 
     // Verify the goal appears in the list
     expect(screen.getByText('Learn Vitest')).toBeInTheDocument();
-    
-    // Verify the empty state message is gone
-    expect(screen.queryByText(/No goals yet/i)).not.toBeInTheDocument();
+    expect(screen.getAllByRole('listitem')).toHaveLength(initialGoalCount + 1);
   });
 });

@@ -1,11 +1,13 @@
 version: '3.8'
 
 services:
-  mera-lakshya-app:
+  goal-manager:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
-    container_name: mera-lakshya
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    container_name: goal-manager
     restart: unless-stopped
