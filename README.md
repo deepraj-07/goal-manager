@@ -1,79 +1,219 @@
-# Goal Manager
+<div align="center">
 
-Goal Manager is a focused, modern single-page application to manage and track personal goals. It ships with a polished UI, local persistence, goal CRUD (create/read/update/delete), analytics, theming, and a CI/CD pipeline for automated builds and verification.
+<!-- HEADER BANNER -->
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=🎯%20Goal%20Manager&fontSize=70&fontColor=fff&animation=twinkling&fontAlignY=35&desc=Track%20Goals.%20Crush%20Targets.%20Ship%20Code.&descAlignY=60&descSize=18"/>
 
-This repository includes:
-- A React + Vite frontend (components in `src/components`)
-- A tiny Express server (`server.js`) used to serve production static assets and a `/health` endpoint used in CI
-- Dockerfile and GitHub Actions workflow for CI/CD
+<!-- BADGES -->
+<p>
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black"/>
+  <img src="https://img.shields.io/badge/Vite-5-646CFF?style=for-the-badge&logo=vite&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Express-4-000000?style=for-the-badge&logo=express&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
+  <img src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white"/>
+</p>
 
-Key features
-- Add goals quickly using the Quick Add input
-- Inline edit and update goal text (Edit → Save / Cancel)
-- Mark a goal as complete (explicit button or click the icon)
-- Delete goals
-- Clear all completed goals
-- Persistent storage via `localStorage` (keeps your goals across browser sessions)
-- Analytics dashboard with progress summary and priority breakdown
-- Light/dark theme toggle persisted to `localStorage`
-- Confetti celebration when marking goals complete (using `canvas-confetti`)
-- Responsive UI with subtle CSS animations and transitions for a modern feel
+<p>
+  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square"/>
+  <img src="https://img.shields.io/badge/License-Educational-orange?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Made%20with-❤️%20%26%20DevOps-red?style=flat-square"/>
+</p>
 
-User-facing animations & effects
-- New goal appear animation (fade + slight translate)
-- Completed goal pop animation when marked complete
-- Smooth hover/press micro-interactions on buttons
-- Confetti effect when completing a goal
+---
 
-Getting started (development)
-1. Install dependencies:
+*A full-stack goal tracking app built as a hands-on **CI/CD & DevOps** class project.*
+*Write goals. Complete them. Watch confetti fall. Ship to production.*
 
-```bash
-npm ci
+</div>
+
+---
+
+## ✨ What This Does
+
+> **Goal Manager** is a focused, modern single-page application that lets you create, track, and celebrate personal goals — wrapped in a complete DevOps pipeline from code commit to containerized deployment.
+
+<table>
+<tr>
+<td width="50%">
+
+### 🎨 Frontend Magic
+- ⚡ **Quick Add** goals in seconds
+- ✏️ **Inline edit** — no modals, just click & type
+- ✅ **One-click complete** with confetti 🎉
+- 🗑️ **Bulk clear** completed goals
+- 📊 **Analytics dashboard** — progress + priority breakdown
+- 🌙 **Dark / Light theme** toggle, persisted
+- 💾 **localStorage persistence** — survives refreshes
+
+</td>
+<td width="50%">
+
+### 🚀 DevOps Pipeline
+- 🔧 **Vite** for blazing-fast dev builds
+- 🐳 **Docker** containerization
+- ⚙️ **GitHub Actions** CI/CD workflow
+- 🏥 `/health` endpoint for container health checks
+- 🧪 Automated **test → build → deploy** on every push to `main`
+- 📦 **Express** server for production static serving
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🌟 Animations & Visual Effects
+
+Every interaction has been crafted with care:
+
+| Effect | Trigger | How it works |
+|--------|---------|--------------|
+| 🌅 Fade + slide-in | New goal added | CSS `@keyframes` with translate |
+| 🎯 Pop animation | Goal marked complete | Scale bounce via keyframes |
+| 🎊 Confetti burst | Completing any goal | `canvas-confetti` library |
+| 🖱️ Hover micro-interactions | Buttons & goal cards | CSS `transform` + `transition` |
+| 🔄 Smooth theme switch | Light ↔ Dark toggle | CSS variable transitions |
+
+---
+
+## 🗂️ Project Structure
+
+```
+goal-manager/
+│
+├── 📁 src/
+│   └── 📁 components/       # React components
+│
+├── 📄 server.js              # Express server (serves dist/ + /health)
+│
+├── 🐳 Dockerfile             # Multi-stage container build
+│
+├── 📁 .github/
+│   └── 📁 workflows/
+│       └── cicd.yml          # GitHub Actions CI/CD pipeline
+│
+├── 📄 vite.config.js         # Vite configuration
+├── 📄 package.json
+└── 📄 README.md
 ```
 
-2. Run development server (Vite):
+---
+
+## 🚦 Getting Started
+
+### Prerequisites
+- Node.js ≥ 18
+- npm ≥ 9
+- Docker (optional, for containerized run)
+
+---
+
+### 💻 Development Mode
 
 ```bash
+# 1. Install dependencies
+npm ci
+
+# 2. Start the Vite dev server
 npm run dev
 ```
 
-Open `http://localhost:5173` (or the address printed by Vite) to view the app.
+Open **http://localhost:5173** and start smashing goals 🎯
 
-Building for production
+---
+
+### 🏗️ Production Build
 
 ```bash
+# Build the frontend
 npm run build
-```
 
-This generates a `dist/` directory that the Express server serves in production. To run the built site locally:
-
-```bash
+# Serve the production build via Express
 npm start
 ```
 
-Docker
+---
 
-Build and run the Docker image locally (the Docker build step runs the frontend build):
+### 🐳 Docker
 
 ```bash
+# Build the image (runs npm run build inside)
 docker build -t goal-manager .
+
+# Run the container
 docker run -p 3000:3000 --rm goal-manager
+
+# Verify the health endpoint
 curl http://127.0.0.1:3000/health
+# → { "status": "ok" }
 ```
 
-CI/CD
+---
 
-This repo includes a GitHub Actions workflow at `.github/workflows/cicd.yml`. On `push` to `main`, the workflow:
-- checks out code
-- installs dependencies (`npm ci`)
-- runs tests (`npm test`)
-- runs `npm run build`
-- builds a Docker image
-- starts a container and verifies the `/health` endpoint returns a JSON status `{ "status": "ok" }`
+## ⚙️ CI/CD Pipeline
 
-Notes & troubleshooting
-- If you hit `EPERM` errors on Windows during `npm ci` (file locked), close any running Node/Vite processes or editors that may lock files, delete `node_modules`, and retry. Example on PowerShell (run from repo root):
+This project was built as a **DevOps class exercise** to practice real-world deployment workflows.
+
+```
+┌─────────────┐     push to main     ┌──────────────────────────────────────────────┐
+│  Developer  │ ──────────────────►  │           GitHub Actions Workflow             │
+└─────────────┘                      │                                              │
+                                     │  1. ✅  Checkout code                        │
+                                     │  2. 📦  npm ci                               │
+                                     │  3. 🧪  npm test                             │
+                                     │  4. 🏗️  npm run build                        │
+                                     │  5. 🐳  docker build                         │
+                                     │  6. 🚀  docker run                           │
+                                     │  7. 🏥  curl /health → { "status": "ok" }   │
+                                     └──────────────────────────────────────────────┘
+```
+
+Workflow file: `.github/workflows/cicd.yml`
+
+Every push to `main` triggers the full pipeline — **tests must pass, build must succeed, and the container must be healthy** before the workflow goes green. ✅
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| ⚛️ UI | React 18 + Vite | Component-based SPA with fast HMR |
+| 🎨 Styling | CSS Modules / Vanilla CSS | Animations, theming, responsive layout |
+| 🎊 Effects | canvas-confetti | Celebration when goals are completed |
+| 💾 Persistence | localStorage | Goals + theme survive browser sessions |
+| 🖥️ Server | Express.js | Serves `dist/` in production + `/health` |
+| 🐳 Container | Docker | Reproducible, portable deployment |
+| 🔄 CI/CD | GitHub Actions | Automated test → build → verify pipeline |
+
+---
+
+## 🧩 Key Features In Depth
+
+### 📊 Analytics Dashboard
+Get a real-time overview of your goal progress:
+- Total goals vs completed
+- Progress percentage bar
+- Priority breakdown chart
+
+### 🌙 Theme System
+- Toggle between **Light** and **Dark** modes
+- Theme preference saved to `localStorage`
+- Smooth CSS variable transitions — no flash on load
+
+### 🎯 Goal Lifecycle
+```
+Created → In Progress → ✅ Complete → (optionally) Deleted
+              ↑               |
+              └── Edit ───────┘
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### `EPERM` errors on Windows during `npm ci`
+
+Files may be locked by a running Node/Vite process or your editor. Run this in PowerShell:
 
 ```powershell
 Stop-Process -Name node -ErrorAction SilentlyContinue
@@ -81,18 +221,50 @@ Remove-Item -Recurse -Force node_modules
 npm ci
 ```
 
-- The Dockerfile includes a `npm run build` step to ensure the container serves production assets. CI also runs the build explicitly to fail fast on build errors.
+### Docker container not starting?
 
-Contributing
-- Open an issue for feature requests or bugs
-- Fork the repo and open a PR with focused changes
+Make sure port `3000` isn't already in use:
 
-License
-- This project is provided as-is for educational/demo use. Add your license file as needed.
+```bash
+# Check what's on port 3000
+lsof -i :3000
 
-Enjoy improving your focus and tracking your wins! If you want, I can:
-- Add priority/deadline editable controls
-- Add CSV export/import for goals
-- Integrate a small charting library for richer analytics (e.g., Chart.js or Recharts)
-- Wire up GitHub Pages or a cloud deployment
+# Or use a different port
+docker run -p 8080:3000 --rm goal-manager
+```
 
+---
+
+## 🔮 Possible Enhancements
+
+- [ ] 🏷️ Priority & deadline controls per goal
+- [ ] 📤 CSV export / import
+- [ ] 📈 Richer analytics with Chart.js or Recharts
+- [ ] ☁️ GitHub Pages or cloud deployment
+- [ ] 🔔 Deadline reminders (browser notifications)
+- [ ] 👥 Multi-user support with a database backend
+
+---
+
+## 🎓 Learning Objectives
+
+This project was created during a **DevOps & CI/CD practical class** to learn:
+
+- ✅ Containerizing a Node.js app with **Docker**
+- ✅ Writing a multi-stage **GitHub Actions** workflow
+- ✅ Health checks and automated **deployment verification**
+- ✅ Separating dev and production environments
+- ✅ Building and serving a **React SPA** with Express in production
+
+---
+
+<div align="center">
+
+---
+
+**Practicing 👨🏻‍💻 in DevOps class.**
+*Set goals. Commit code. Ship it.*
+
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer"/>
+
+</div>
