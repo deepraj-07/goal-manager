@@ -1,7 +1,7 @@
 import GoalItem from './GoalItem';
 import './GoalList.css';
 
-function GoalList({ goals, onToggle, onDelete }) {
+function GoalList({ goals, onToggle, onDelete, onUpdate }) {
     if (goals.length === 0) {
         return (
             <div className="empty-state">
@@ -18,6 +18,7 @@ function GoalList({ goals, onToggle, onDelete }) {
                     goal={goal}
                     onToggle={onToggle}
                     onDelete={onDelete}
+                    onUpdate={onUpdate}
                 />
             ))}
         </ul>

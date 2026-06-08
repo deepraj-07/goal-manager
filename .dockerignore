@@ -4,3 +4,14 @@ dist
 .env
 .github
 *.log
+*.pem
+*.key
+*.crt
+*.cer
+*.der
+*.p12
+*.pfx
+*.pub
+*.jks
+*.secret
+.env.*

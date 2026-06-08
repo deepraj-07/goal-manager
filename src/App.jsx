@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import TopBar from './components/TopBar';
 import GoalInput from './components/GoalInput';
 import GoalItem from './components/GoalItem';
+import ProgressSummary from './components/ProgressSummary';
 import './App.css';
 
 function App() {
@@ -35,11 +36,11 @@ function App() {
 
   const addGoal = (text) => {
     const newGoal = { id: Date.now(), text, deadline: 'Next Week', completed: false, priority: 'low' };
-    setGoals([newGoal, ...goals]);
+    setGoals(prev => [newGoal, ...prev]);
   };
 
   const toggleGoal = (id) => {
-    setGoals(goals.map(g => {
+    setGoals(prev => prev.map(g => {
       if (g.id === id) {
          if (!g.completed) triggerConfetti();
          return { ...g, completed: !g.completed };
@@ -48,8 +49,9 @@ function App() {
     }));
   };
 
-  const deleteGoal = (id) => setGoals(goals.filter(g => g.id !== id));
-  const clearCompleted = () => setGoals(goals.filter(g => !g.completed));
+  const deleteGoal = (id) => setGoals(prev => prev.filter(g => g.id !== id));
+  const clearCompleted = () => setGoals(prev => prev.filter(g => !g.completed));
+  const updateGoal = (id, updates) => setGoals(prev => prev.map(g => g.id === id ? { ...g, ...updates } : g));
 
   const calculateTrainingScore = (goalList, currentFilter, currentTab) => {
     let score = 0;
@@ -152,6 +154,7 @@ function App() {
                         goal={goal} 
                         onToggle={toggleGoal} 
                         onDelete={deleteGoal} 
+                        onUpdate={updateGoal}
                       />
                     ))}
                   </ul>
@@ -246,7 +249,7 @@ function App() {
                 </div>
                 <ul className="goal-list">
                   {filteredGoals.map(goal => (
-                    <GoalItem key={goal.id} goal={goal} onToggle={toggleGoal} onDelete={deleteGoal} />
+                    <GoalItem key={goal.id} goal={goal} onToggle={toggleGoal} onDelete={deleteGoal} onUpdate={updateGoal} />
                   ))}
                 </ul>
               </div>
@@ -255,9 +258,37 @@ function App() {
 
           {activeTab === 'analytics' && (
             <div className="dashboard-grid">
-              <div style={{gridColumn: '1 / -1', background: 'var(--card-bg)', padding: '64px', borderRadius: '24px', textAlign: 'center', boxShadow: 'var(--glass-shadow)'}}>
+              <div style={{gridColumn: '1 / -1', background: 'var(--card-bg)', padding: '32px', borderRadius: '24px', boxShadow: 'var(--glass-shadow)'}}>
                 <h2 style={{fontSize: '1.6rem', color: 'var(--text-primary)', marginBottom: '8px'}}>Analytics Dashboard</h2>
-                <p style={{color: 'var(--text-secondary)'}}>Your detailed progress charts are currently being generated...</p>
+                <p style={{color: 'var(--text-secondary)'}}>Overview of your goals and progress.</p>
+                <div style={{display: 'flex', gap: 20, alignItems: 'flex-start', marginTop: 20}}>
+                  <div style={{flex: 1}}>
+                    <ProgressSummary goals={goals} />
+                  </div>
+                  <div style={{flex: 1}}>
+                    <div style={{textAlign: 'left'}}>
+                      <h4 style={{margin: '6px 0 12px 0'}}>By Priority</h4>
+                      {(() => {
+                        const counts = { high: 0, med: 0, low: 0 };
+                        goals.forEach(g => counts[g.priority] = (counts[g.priority] || 0) + 1);
+                        const max = Math.max(1, counts.high, counts.med, counts.low);
+                        return (
+                          <div style={{display: 'grid', gap: 12}}>
+                            {['high','med','low'].map(p => (
+                              <div key={p} style={{display: 'flex', alignItems: 'center', gap: 12}}>
+                                <div style={{width: 80, textTransform: 'capitalize'}}>{p}</div>
+                                <div style={{flex: 1, background: 'var(--input-bg)', height: 12, borderRadius: 6}}>
+                                  <div style={{height: '100%', width: `${(counts[p]/max)*100}%`, background: p === 'high' ? 'var(--danger-color)' : p === 'med' ? '#f59e0b' : '#10b981', borderRadius: 6}}></div>
+                                </div>
+                                <div style={{width: 40, textAlign: 'right'}}>{counts[p]}</div>
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
