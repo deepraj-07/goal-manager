@@ -15,7 +15,8 @@ const __dirname = path.dirname(__filename);
 const distPath = path.join(__dirname, 'dist');
 try {
   app.use(express.static(distPath));
-  app.get('*', (req, res, next) => {
+  app.use((req, res, next) => {
+    if (req.method !== 'GET') return next();
     if (req.path.startsWith('/api') || req.path === '/health') return next();
     res.sendFile(path.join(distPath, 'index.html'));
   });
@@ -23,7 +24,7 @@ try {
   // If dist doesn't exist, ignore — server still exposes /health
 }
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server listening on port ${port}`);
 });
 
